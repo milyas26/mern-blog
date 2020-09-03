@@ -6,7 +6,7 @@ const Login = () => {
     return (
         <div className="main-page">
             <div className="left">
-                <img src={LoginBg} className="bg-image" alt="image background" />
+                <img src={LoginBg} className="bg-image" alt="background" />
             </div>
             <div className="right">
                 <h2 className="title">Login</h2>
