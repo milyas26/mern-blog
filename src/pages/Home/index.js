@@ -1,30 +1,43 @@
-import React from 'react'
-import {Button, BlogItem, Gap} from '../../component'
+import React, { useEffect } from 'react'
+import { Button, BlogItem, Gap } from '../../component'
 import './home.scss'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import Axios from 'axios'
 
 const Home = () => {
-    const history = useHistory();
-    return (
-        <div className="homepage-wrapper">
-            <div className="create-wrapper">
-                <Button title="Create Blog" onClick={() => history.push('/create-blog')} />
-            </div>
-            <Gap height={30}/>
-            <div className="content-wrapper">
-                <BlogItem/>
-                <BlogItem/>
-                <BlogItem/>
-                <BlogItem/>
-            </div>
-            <div className="pagination">
-                <Button title="Previous" />
-                <Gap width={20} />
-                <Button title="Next" />
-            </div>
-            <Gap height={20} />
-        </div>
-    )
+  useEffect(() => {
+    Axios.get('http://localhost:4000/v1/blog/posts')
+      .then((result) => {
+        console.log('data API', result.data)
+      })
+      .catch((err) => {
+        console.log('error: ', err)
+      })
+  }, [])
+  const history = useHistory()
+  return (
+    <div className="homepage-wrapper">
+      <div className="create-wrapper">
+        <Button
+          title="Create Blog"
+          onClick={() => history.push('/create-blog')}
+        />
+      </div>
+      <Gap height={30} />
+      <div className="content-wrapper">
+        <BlogItem />
+        <BlogItem />
+        <BlogItem />
+        <BlogItem />
+      </div>
+      <div className="pagination">
+        <Button title="Previous" />
+        <Gap width={20} />
+        <Button title="Next" />
+      </div>
+      <Gap height={20} />
+    </div>
+  )
 }
 
 export default Home
